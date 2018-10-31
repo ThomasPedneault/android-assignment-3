@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="#ffffff"
+    tools:context=".ui.editor.NoteEditFragment"
+    tools:showIn="@layout/content_note_list">
+
+    <EditText
+        android:id="@+id/title_EditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/body_EditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="Body"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/options_LinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_EditText" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/footer_Toolbar"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/showOptions_Switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/footer_Toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/footer_Toolbar"
+        app:layout_constraintTop_toTopOf="@+id/footer_Toolbar" />
+
+    <LinearLayout
+        android:id="@+id/options_LinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="84dp"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/footer_Toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/reminder_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/reminder_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="Add a reminder"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/colors_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <view
+                android:id="@+id/red_circleView"
+                class="ca.qc.johnabbott.cs616.notes.ui.util.CircleView"
+                id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:circleColor="@color/base08" />
+
+            <view
+                android:id="@+id/orange_circleView"
+                class="ca.qc.johnabbott.cs616.notes.ui.util.CircleView"
+                id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:circleColor="@color/base09" />
+
+            <view
+                android:id="@+id/yellow_circleView"
+                class="ca.qc.johnabbott.cs616.notes.ui.util.CircleView"
+                id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:circleColor="@color/base0A" />
+
+            <view
+                android:id="@+id/green_circleView"
+                class="ca.qc.johnabbott.cs616.notes.ui.util.CircleView"
+                id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:circleColor="@color/base0B" />
+
+            <view
+                android:id="@+id/lightBlue_circleView"
+                class="ca.qc.johnabbott.cs616.notes.ui.util.CircleView"
+                id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:circleColor="@color/base0C" />
+
+            <view
+                android:id="@+id/darkBlue_circleView"
+                class="ca.qc.johnabbott.cs616.notes.ui.util.CircleView"
+                id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:circleColor="@color/base0D" />
+
+            <view
+                android:id="@+id/purple_circleView"
+                class="ca.qc.johnabbott.cs616.notes.ui.util.CircleView"
+                id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:circleColor="@color/base0E" />
+
+            <view
+                android:id="@+id/white_circleView"
+                class="ca.qc.johnabbott.cs616.notes.ui.util.CircleView"
+                id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:circleColor="@color/base05" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

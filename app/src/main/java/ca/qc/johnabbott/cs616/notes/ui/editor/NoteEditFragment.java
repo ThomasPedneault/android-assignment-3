@@ -1,6 +1,8 @@
 package ca.qc.johnabbott.cs616.notes.ui.editor;
 
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,7 +46,7 @@ public class NoteEditFragment extends Fragment {
     private View root;
     private ImageView addCollaboratorImageView;
 
-    // colaborators
+    // collaborators
     private List<User> collaborators;
     private RecyclerView collaboratorsRecyclerView;
 
@@ -55,7 +57,7 @@ public class NoteEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_note_edit, container, false);
+        root = inflater.inflate(R.layout.fragment_notes, container, false);
 
         // UI references
         titleEditText = root.findViewById(R.id.noteTitle_EditText);
@@ -101,10 +103,8 @@ public class NoteEditFragment extends Fragment {
 
 
         // initialize the note
-        setNote(new Note()
-                .setCreated(new Date())
-                .setCategory(Category.RED)
-        );
+        Note note = getActivity().getIntent().getParcelableExtra("note");
+        setNote(note);
 
         return root;
     }

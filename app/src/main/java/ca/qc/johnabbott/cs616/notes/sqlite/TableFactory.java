@@ -271,7 +271,6 @@ public class TableFactory<T extends Identifiable<Long>> {
 
         };
 
-
         for(Method method : getGetters(model)) {
 
             String methodName = stripPackageName(method.getName());
