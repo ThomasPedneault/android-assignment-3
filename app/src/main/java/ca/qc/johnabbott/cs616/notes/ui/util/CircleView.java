@@ -23,7 +23,6 @@ public class CircleView extends View {
     private Paint paint;
     private Paint borderPaint;
 
-
     // The position of the circle
     private RectF position;
 
