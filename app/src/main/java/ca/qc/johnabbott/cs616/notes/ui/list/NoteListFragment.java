@@ -13,7 +13,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -230,6 +233,7 @@ public class NoteListFragment extends Fragment {
         private final TextView noteBodyView;
         private final TextView noteReminderView;
         private final View root;
+        private ActionMode actionMode;
         private Note note;
 
         public NoteViewHolder(@NonNull View itemView) {
@@ -245,6 +249,59 @@ public class NoteListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     displayEditNoteFragment(note, UPDATE_NOTE_CODE);
+                }
+            });
+
+            root.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if(actionMode != null) {
+                        return false;
+                    }
+
+                    actionMode = v.startActionMode(new ActionMode.Callback2() {
+                        @Override
+                        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                            mode.getMenuInflater().inflate(R.menu.menu_noteclick_action, menu);
+                            return true;
+                        }
+
+                        @Override
+                        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                            switch(item.getItemId()) {
+                                case R.id.edit_MenuItem:
+                                    displayEditNoteFragment(note, UPDATE_NOTE_CODE);
+                                    mode.finish();
+                                    return true;
+                                case R.id.trash_MenuItem:
+                                    try {
+                                        dbh.getNotesTable().delete(note);
+                                        mode.finish();
+                                        refreshNoteRecyclerView();
+                                    } catch (DatabaseException e) {
+                                        e.printStackTrace();
+                                        return false;
+                                    }
+                                    return true;
+                                case R.id.close_MenuItem:
+                                default:
+                                    mode.finish();
+                                    return true;
+                            }
+                        }
+
+                        @Override
+                        public void onDestroyActionMode(ActionMode mode) {
+                            actionMode = null;
+                        }
+                    }, ActionMode.TYPE_FLOATING);
+
+                    return true;
                 }
             });
         }
