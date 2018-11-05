@@ -21,7 +21,7 @@ public class NoteDatabaseHandler extends SQLiteOpenHelper {
     /**
      * Update this field for every structural change to the database.
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     private Context context;
 

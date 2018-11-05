@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,9 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +38,7 @@ import ca.qc.johnabbott.cs616.notes.model.Note;
 import ca.qc.johnabbott.cs616.notes.model.NoteDatabaseHandler;
 import ca.qc.johnabbott.cs616.notes.model.User;
 import ca.qc.johnabbott.cs616.notes.sqlite.DatabaseException;
+import ca.qc.johnabbott.cs616.notes.ui.util.AddCollaboratorDialogFragment;
 import ca.qc.johnabbott.cs616.notes.ui.util.CircleView;
 import ca.qc.johnabbott.cs616.notes.ui.util.DatePickerDialogFragment;
 import ca.qc.johnabbott.cs616.notes.ui.util.TimePickerDialogFragment;
@@ -65,6 +69,7 @@ public class NoteEditFragment extends Fragment {
     // collaborators
     private List<User> collaborators;
     private RecyclerView collaboratorsRecyclerView;
+    private NoteDatabaseHandler dbh;
 
 
     public NoteEditFragment() {
@@ -96,13 +101,22 @@ public class NoteEditFragment extends Fragment {
         setCircleViewOnClickListener(R.id.purple_circleView, Category.PURPLE);
         setCircleViewOnClickListener(R.id.white_circleView, Category.BROWN);
 
-        /*
+        dbh = new NoteDatabaseHandler(getContext());
+
         // initialize collaborator
-        addCollaboratorImageView = root.findViewById(R.id.addCollabortor_ImageView);
+        addCollaboratorImageView = root.findViewById(R.id.addCollaborator_ImageView);
         addCollaboratorImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Garply", Toast.LENGTH_SHORT).show();
+                AddCollaboratorDialogFragment dialog;
+                try {
+                    List<User> usersTable = dbh.getUsersTable().readAll();
+                    usersTable.removeAll(collaborators);
+                    dialog = new AddCollaboratorDialogFragment(usersTable);
+                    dialog.show(getFragmentManager(), "addCollaborator");
+                } catch (DatabaseException e) {
+                    Log.d("COLLAB-DIALOG", "Failed to display dialog.");
+                }
             }
         });
 
@@ -132,7 +146,6 @@ public class NoteEditFragment extends Fragment {
                 return collaborators.size();
             }
         });
-        */
 
 
         // initialize the note
@@ -165,8 +178,12 @@ public class NoteEditFragment extends Fragment {
     }
 
     public Note getNote() {
+        String title = "Default Note Title";
+        if(!titleEditText.getText().toString().equals("")) {
+            title = titleEditText.getText().toString();
+        }
         Note note = new Note()
-                    .setTitle(titleEditText.getText().toString())
+                    .setTitle(title)
                     .setBody(bodyEditText.getText().toString())
                     .setCategory(currentNote.getCategory());
 

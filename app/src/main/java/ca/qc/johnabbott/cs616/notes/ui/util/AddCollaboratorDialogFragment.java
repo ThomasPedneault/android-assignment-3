@@ -44,7 +44,6 @@ public class AddCollaboratorDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_dialog_add_collaborator, container, false);
 
-        //
         collaboratorsRecyclerView = root.findViewById(R.id.collaborators_RecyclerView);
         adapter = new CollaboratorAdapter();
         collaboratorsRecyclerView.setAdapter(adapter);
